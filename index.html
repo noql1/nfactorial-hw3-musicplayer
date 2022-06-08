@@ -1,0 +1,56 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<link rel="stylesheet" href="css/styles.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>  
+<title> Music Player </title>
+</head>
+<body>
+    <div class ="background">  
+        <video style="height: 100vh" id="video-background" autoplay muted width = 100%>
+            <source src="assets/video.mp4"/>
+        </video> 
+        <div class="container" id="container">
+            <div class ="button">
+                <h1 style="color: white;"> Music Player</h1>
+                <button id="btn-change-background" onclick="playVideo()"> 
+                    <i class="fa fa-music" style="color: blue; padding:2px"></i>
+                </button> 
+            </div>
+            <div class="center">
+            </div> 
+            <div class="playpause" id="playpause" onclick="playPause()">
+                <i style="color: white;" class="fa fa-play-circle fa-5x"></i>
+            </div>
+            <audio src="assets/ID-enemy.mp3" id="audio"> </audio>
+        </div>
+    </div>
+</body> 
+
+<script>
+    const BtnAudio = document.getElementById("playpause");
+     const Audio = document.getElementById("audio"); 
+     const buttonColor = document.getElementById("btn-change-background");
+     const videoBackground = document.getElementById("video-background");
+     function playVideo(){
+         if(videoBackground.paused){
+             videoBackground.play();
+             buttonColor.style.backgroundColor = 'yellow';
+         } 
+         else {
+             videoBackground.pause();
+             buttonColor.style.backgroundColor = 'transparent';
+         }
+     }
+     function playPause(){
+         if(Audio.paused){
+             audio.play();
+             BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-pause-circle fa-5x"></i>';
+         }
+         else {
+            audio.pause();
+            BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-play-circle fa-5x"></i>';
+         }
+     }
+</script>
+</html>
