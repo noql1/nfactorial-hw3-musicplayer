@@ -17,40 +17,70 @@
                     <i class="fa fa-music" style="color: blue; padding:2px"></i>
                 </button> 
             </div>
-            <div class="center">
-            </div> 
+            <div class="audio-container">
+                <div class="progress" id="progress"></div>
+                <audio src="assets/ID-enemy.mp3" id="audio"> </audio>
+            </div>
             <div class="playpause" id="playpause" onclick="playPause()">
                 <i style="color: white;" class="fa fa-play-circle fa-5x"></i>
             </div>
-            <audio src="assets/ID-enemy.mp3" id="audio"> </audio>
         </div>
     </div>
 </body> 
 
 <script>
+    let timer;
+    let percent = 0;
+    let audio = document.getElementById("audio");
+
+    audio.addEventListener("playing", function(_event) {
+        let duration = _event.target.duration;
+        advance(duration, audio);
+    });
+
+    audio.addEventListener("pause", function(_event) {
+        clearTimeout(timer);
+    });
+
+    let advance = function(duration, element) {
+        let progress = document.getElementById("progress");
+        increment = 10/duration;
+        percent = Math.min(increment * element.currentTime * 10, 100);
+        progress.style.width = percent+'%'
+        startTimer(duration, element);
+    }
+
+    let startTimer = function(duration, element){ 
+        if(percent < 100) {
+            timer = setTimeout(function (){advance(duration, element)}, 100);
+        }
+    }
+
     const BtnAudio = document.getElementById("playpause");
-     const Audio = document.getElementById("audio"); 
-     const buttonColor = document.getElementById("btn-change-background");
-     const videoBackground = document.getElementById("video-background");
-     function playVideo(){
-         if(videoBackground.paused){
-             videoBackground.play();
-             buttonColor.style.backgroundColor = 'yellow';
-         } 
-         else {
-             videoBackground.pause();
-             buttonColor.style.backgroundColor = 'transparent';
-         }
-     }
-     function playPause(){
-         if(Audio.paused){
-             audio.play();
-             BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-pause-circle fa-5x"></i>';
-         }
-         else {
-            audio.pause();
-            BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-play-circle fa-5x"></i>';
-         }
-     }
+    const Audio = document.getElementById("audio"); 
+    const buttonColor = document.getElementById("btn-change-background");
+    const videoBackground = document.getElementById("video-background");
+
+    function playVideo(){
+        if(videoBackground.paused){
+            videoBackground.play();
+            buttonColor.style.backgroundColor = 'yellow';
+        } 
+        else {
+            videoBackground.pause();
+            buttonColor.style.backgroundColor = 'transparent';
+        }
+    }
+
+    function playPause(){
+        if(Audio.paused){
+            audio.play();
+            BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-pause-circle fa-5x"></i>';
+        }
+        else {
+        audio.pause();
+        BtnAudio.innerHTML = '<i style="color:white;" class="fa fa-play-circle fa-5x"></i>';
+        }
+    }
 </script>
 </html>

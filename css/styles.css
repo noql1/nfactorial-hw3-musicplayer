@@ -19,3 +19,18 @@ body {
     top: 60%;
     right: 53%;
 }
+
+.audio-container {
+    position: absolute;
+    top: 70%;
+    right: 35%;
+    width: 40%;
+    background: #ddd;
+}
+
+.progress {
+    width: 1px;
+    height: 3px;
+    background: #006B5A;
+    transition: width .1s linear;
+  }
